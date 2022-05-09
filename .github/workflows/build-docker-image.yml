@@ -1,56 +1,32 @@
-on: push
+on:
+  push:
+    paths:
+      - 'backstage/**'
+
 name: Deploy
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-    - name: build
-      run: |
-        export NODE_OPTIONS="--max-old-space-size=8192"
-        # curl -s https://api.github.com/repos/backstage/backstage/releases/latest | sed -n 's/.*"tarball_url": "\(.*\)",.*/\1/p' | xargs -n1 wget -O - -q | tar -xz --strip-components=1
-        # cp ./backstage/app-config.yaml ./
-        cd backstage
-        yarn install -g
-        yarn install --frozen-lockfile
-        yarn tsc
-        yarn build
-
-# name: Deploy Docker Container
-# on:
-#   push:
-#     branches:
-#       - main
-
-# jobs:
-#   job:
-#     runs-on: ubuntu-latest
-#     name: Deploy docker container
-#     steps:
-#       - id: deploy_image
-#       - uses: actions/setup-node@v3
-#         with:
-#           node-version: 16
-#       - id: Validate_Variables
-#         name: Validate Variables
-#         shell: pwsh
-#         run: |
-#           export NODE_OPTIONS="--max-old-space-size=8192"
-#           # curl -s https://api.github.com/repos/backstage/backstage/releases/latest | sed -n 's/.*"tarball_url": "\(.*\)",.*/\1/p' | xargs -n1 wget -O - -q | tar -xz --strip-components=1
-#           # cp ./backstage/app-config.yaml ./
-#           yarn install -g
-#           yarn install --frozen-lockfile
-#           yarn tsc
-#           yarn build
-#         # displayName: 'Install Yarn and build'
-#         #   - script: |
-#         #         az login --service-principal -u "e942b89d-19e2-47db-9564-375819858e9d" -p $(az_client_secret) -t "f87e3ba3-60db-4f96-afb4-4e7729df2c96" --allow-no-subscriptions
-#         #         az acr login --name acrregistrys6flp.azurecr.io
-#         #         docker image build . --file packages/backend/Dockerfile --tag acrregistrys6flp.azurecr.io/backstage:1.0.0
-#         #         docker push acrregistrys6flp.azurecr.io/backstage:1.0.0
-#         #     displayName: 'Build and Push Image'
-#         #     env:
-#         #       AZ_CLIENT_SECRET: $(az_client_secret)
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: build
+        run: |
+          export NODE_OPTIONS="--max-old-space-size=8192"
+          # curl -s https://api.github.com/repos/backstage/backstage/releases/latest | sed -n 's/.*"tarball_url": "\(.*\)",.*/\1/p' | xargs -n1 wget -O - -q | tar -xz --strip-components=1
+          # cp ./backstage/app-config.yaml ./
+          cd backstage
+          yarn install -g
+          yarn install --frozen-lockfile
+          yarn tsc
+          yarn build
+      # - name: deploy
+      #   run: |
+      #     az login --service-principal -u "e942b89d-19e2-47db-9564-375819858e9d" -p $(az_client_secret) -t "f87e3ba3-60db-4f96-afb4-4e7729df2c96" --allow-no-subscriptions
+      #     az acr login --name acrregistrys6flp.azurecr.io
+      #     docker image build . --file packages/backend/Dockerfile --tag acrregistrys6flp.azurecr.io/backstage:1.0.0
+      #     docker push acrregistrys6flp.azurecr.io/backstage:1.0.0
+      #   env:
+      #     AZ_CLIENT_SECRET: $(az_client_secret)

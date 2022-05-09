@@ -7,7 +7,7 @@ on:
 jobs:
   terraform_default_job:
     runs-on: ubuntu-latest
-    name: Using terraform_state_artifact action
+    name: Deploy docker container
     steps:
       - id: deploy_image
       - uses: actions/setup-node@v3

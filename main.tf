@@ -73,11 +73,12 @@ resource "azurerm_resource_group" "landingzone" {
 }
 
 resource "azurerm_kubernetes_cluster" "landingzone" {
-  name                = local.aks_name_landingzone
-  resource_group_name = azurerm_resource_group.landingzone.name
-  location            = azurerm_resource_group.landingzone.location
-  dns_prefix          = "${local.aks_name_landingzone}-1"
-  tags                = local.tags
+  name                             = local.aks_name_landingzone
+  resource_group_name              = azurerm_resource_group.landingzone.name
+  location                         = azurerm_resource_group.landingzone.location
+  dns_prefix                       = "${local.aks_name_landingzone}-1"
+  tags                             = local.tags
+  http_application_routing_enabled = true
 
   default_node_pool {
     name       = "node1545f414"

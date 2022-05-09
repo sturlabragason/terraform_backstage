@@ -10,7 +10,4 @@ resource "null_resource" "build" {
         yarn build
     EOF
   }
-  depends_on = [
-    module.workspace
-  ]
 }

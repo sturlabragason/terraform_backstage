@@ -232,32 +232,75 @@ resource "kubernetes_service_v1" "backstage" {
   ]
 }
 
-resource "kubernetes_ingress" "backstage" {
+# resource "kubernetes_ingress" "backstage" {
+#   metadata {
+#     name      = "backstageingress"
+#     namespace = kubernetes_namespace_v1.main.metadata.0.name
+#     annotations = {
+#       "kubernetes.io/ingress.class" = "addon-http-application-routing"
+#     }
+#   }
+#   spec {
+#     backend {
+#       service_name = kubernetes_service_v1.backstage.metadata.0.name
+#       service_port = 80
+#     }
+#     rule {
+#       http {
+#         path {
+#           path = "/"
+#           backend {
+#             service_name = kubernetes_service_v1.backstage.metadata.0.name
+#             service_port = 80
+#           }
+#         }
+#       }
+#     }
+#   }
+#   depends_on = [
+#     azurerm_kubernetes_cluster.landingzone,
+#   ]
+# }
+
+resource "kubernetes_ingress_v1" "example_ingress" {
   metadata {
-    name      = "backstageingress"
-    namespace = kubernetes_namespace_v1.main.metadata.0.name
-    annotations = {
-      "kubernetes.io/ingress.class" = "addon-http-application-routing"
-    }
+    name = "example-ingress"
   }
+
   spec {
-    backend {
-      service_name = kubernetes_service_v1.backstage.metadata.0.name
-      service_port = 80
-    }
-    rule {
-      http {
-        path {
-          path = "/"
-          backend {
-            service_name = kubernetes_service_v1.backstage.metadata.0.name
-            service_port = 80
-          }
+    default_backend {
+      service {
+        name = kubernetes_service_v1.backstage.metadata.0.name
+        port {
+          number = 80
         }
       }
     }
+
+    rule {
+      http {
+        path {
+          backend {
+            service {
+              name = kubernetes_service_v1.backstage.metadata.0.name
+              port {
+                number = 80
+              }
+            }
+          }
+
+          path = "/*"
+        }
+      }
+    }
+
+    #     tls {
+    #       secret_name = "tls-secret"
+    #     }
   }
+
   depends_on = [
     azurerm_kubernetes_cluster.landingzone,
   ]
 }
+

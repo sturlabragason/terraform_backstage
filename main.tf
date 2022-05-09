@@ -13,6 +13,9 @@ locals {
   appId                           = "b081bc92-fe64-4d89-9659-1a948d3b6850"
   tenant                          = "241f985c-5a26-4377-bd6d-157c2c17fb20"
   subscription_id                 = "a7a2cf01-7973-4e18-8a5d-f30983ab5dbd"
+  tags = {
+    "Business Unit" = "Finance"
+  }
 }
 
 resource "random_string" "random" {
@@ -74,6 +77,7 @@ resource "azurerm_kubernetes_cluster" "landingzone" {
   resource_group_name = azurerm_resource_group.landingzone.name
   location            = azurerm_resource_group.landingzone.location
   dns_prefix          = "${local.aks_name_landingzone}-1"
+  tags                = local.tags
 
   default_node_pool {
     name       = "node1545f414"
@@ -99,6 +103,7 @@ resource "azurerm_container_registry" "landingzone" {
   resource_group_name = azurerm_resource_group.landingzone.name
   location            = azurerm_resource_group.landingzone.location
   sku                 = "Basic"
+  tags                = local.tags
 }
 
 resource "azurerm_role_assignment" "landingzone" {

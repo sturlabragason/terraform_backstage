@@ -56,6 +56,9 @@ provider "kubernetes" {
 data "azurerm_client_config" "landingzone" {
 }
 
+data "azurerm_subscription" "landingzone" {
+}
+
 # # ------------------------------------------------------
 # # Resources - Resource Groups, Virtual Network, Storage Account, Container with Terraform Statefile, Keyvault containing Service Principal Credentials 
 # # ------------------------------------------------------
@@ -63,6 +66,7 @@ data "azurerm_client_config" "landingzone" {
 resource "azurerm_resource_group" "landingzone" {
   name     = local.resource_group_name_landingzone
   location = local.resource_location
+  tags     = data.azurerm_subscription.landingzone.tags
 }
 
 resource "azurerm_kubernetes_cluster" "landingzone" {

@@ -1,0 +1,38 @@
+# trigger:
+#   branches:
+#     include:
+#     - main
+#   paths:
+#     include:
+#     - terraform
+
+# variables:
+# - name: terraform_azurerm_provider_version
+#   value: 2.96.0
+# - name: terraform_version
+#   value: 1.1.5
+  
+# - group: group-1545f414-670d-49d2-ac2e-9d057c71195b
+
+# pool:
+#   vmImage: 'ubuntu-latest'
+
+# stages:
+
+# - stage: Build_Terraform_apply
+#   jobs:
+#   - job: tfapply
+#     timeoutInMinutes: 0
+#     steps:
+#     - task: PowerShell@2
+#       displayName: 'Replace Tokens'
+#       inputs:
+#         targetType: 'inline'
+#         script: 'gci env:|%{$n=$_.name;$v=$_.value;gci "./terraform/*" -Include "*.tf","*.ps1", "*.tfvars" -r -af|%{$f=$_.fullname;(gc $f) -replace "__$($n)__","$($v)"|Set-Content $f}}'
+#         pwsh: true
+#       env:
+#         AZ_CLIENT_SECRET: $(az_client_secret)
+#     - script: |
+#         terraform -chdir='$(Build.Repository.LocalPath)/terraform/' init
+#         terraform -chdir='$(Build.Repository.LocalPath)/terraform/' apply -auto-approve
+#       displayName: 'Terraform Apply'

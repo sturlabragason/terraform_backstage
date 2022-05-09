@@ -24,7 +24,11 @@ backend:
     methods: [GET, POST, PUT, DELETE]
     credentials: true
   # config options: https://node-postgres.com/api/client
+  backend:
   database:
+-    client: better-sqlite3
+-    connection: ':memory:'
+    # config options: https://node-postgres.com/api/client
     client: pg
     connection:
       host: ${POSTGRES_HOST}
@@ -37,9 +41,6 @@ backend:
       # ssl:
       #   ca: # if you have a CA file and want to verify it you can uncomment this section
       #     $file: <file-path>/ca/server.crt
-  cache:
-    store: memory
-  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 integrations:
   github:

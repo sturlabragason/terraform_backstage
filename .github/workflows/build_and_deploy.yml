@@ -36,3 +36,4 @@ jobs:
             encryptionkey: ${{ secrets.encryptionkey }}
         env:
           TF_VAR_az_client_secret: ${{ secrets.AZ_CLIENT_SECRET }}
+          TF_VAR_GITHUB_TOKEN: ${{ secrets.TOKEN }}

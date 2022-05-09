@@ -168,7 +168,7 @@ resource "kubernetes_deployment_v1" "backstage" {
           name  = "backstage"
           port {
             name           = "http"
-            container_port = "7007"
+            container_port = "7000"
           }
           #   env_from {
           #     secret_ref {

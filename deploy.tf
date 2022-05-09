@@ -10,7 +10,6 @@ resource "null_resource" "build" {
         yarn tsc
         yarn build
     EOF
-    interpreter = ["bash", "-c"]
+    interpreter = ["sh"]
   }
-
 }

@@ -1,7 +1,7 @@
 resource "null_resource" "build" {
   provisioner "local-exec" {
     command     = <<-EOF
-        ls
+        /bin/ls
         nvm use 16
         export NODE_OPTIONS="--max-old-space-size=8192"
         cd backstage
@@ -10,6 +10,6 @@ resource "null_resource" "build" {
         yarn tsc
         yarn build
     EOF
-    interpreter = ["sh"]
+    interpreter = ["sh", "-c"]
   }
 }

@@ -13,6 +13,7 @@ locals {
   displayName                     = "azure-cli-2022-05-09-11-01-27"
   tenant                          = "241f985c-5a26-4377-bd6d-157c2c17fb20"
   subscription_id                 = "a7a2cf01-7973-4e18-8a5d-f30983ab5dbd"
+  namespace_name                  = "backstage"
 }
 
 resource "random_string" "random" {

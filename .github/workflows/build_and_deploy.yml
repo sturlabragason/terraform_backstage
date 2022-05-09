@@ -35,4 +35,4 @@ jobs:
         with:
             encryptionkey: ${{ secrets.encryptionkey }}
         env:
-          AZ_CLIENT_SECRET: ${{ secrets.AZ_CLIENT_SECRET }}
+          TF_VAR_az_client_secret: ${{ secrets.AZ_CLIENT_SECRET }}

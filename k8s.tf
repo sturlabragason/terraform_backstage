@@ -188,7 +188,7 @@ resource "kubernetes_deployment_v1" "backstage" {
     }
   }
   depends_on = [
-    #  kubernetes_deployment_v1.postgres,
+    null_resource.build,
     azurerm_kubernetes_cluster.landingzone
   ]
 }

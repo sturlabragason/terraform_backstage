@@ -3,12 +3,16 @@
 # ------------------------------------------------------
 
 locals {
-  resource_location                 = "West Europe"
-  resource_group_name_landingzone   = "rg-1545f414-670d-49d2-ac2e-9d057c71195b-platform"
-  aks_name_landingzone              = "aks${random_string.random.result}"
-  storage_account_name_aks          = lower("sa${random_string.random.result}")
-  share_name                        = "postgresshare"
-  acr_name                          = "acrregistry${random_string.random.result}"
+  resource_location               = "West Europe"
+  resource_group_name_landingzone = "rg-backstage"
+  aks_name_landingzone            = "aks${random_string.random.result}"
+  storage_account_name_aks        = lower("sa${random_string.random.result}")
+  share_name                      = "postgresshare"
+  acr_name                        = "acrregistry${random_string.random.result}"
+  appId                           = "22937906-cbd5-4e66-a09b-33476e2cb898"
+  displayName                     = "azure-cli-2022-05-09-11-01-27"
+  tenant                          = "241f985c-5a26-4377-bd6d-157c2c17fb20"
+  subscription_id                 = "a7a2cf01-7973-4e18-8a5d-f30983ab5dbd"
 }
 
 resource "random_string" "random" {
@@ -19,22 +23,22 @@ resource "random_string" "random" {
 terraform {
   required_providers {
     azurerm = {
-      source  = "hashicorp/azurerm"
+      source = "hashicorp/azurerm"
     }
     kubernetes = {
-      source  = "hashicorp/kubernetes"
+      source = "hashicorp/kubernetes"
     }
     random = {
-      source  = "hashicorp/random"
+      source = "hashicorp/random"
     }
   }
 }
 
 provider "azurerm" {
-  subscription_id            = "a7a2cf01-7973-4e18-8a5d-f30983ab5dbd"
-  tenant_id                  = "241f985c-5a26-4377-bd6d-157c2c17fb20"
+  subscription_id            = local.subscription_id
+  tenant_id                  = local.tenant_id
   client_secret              = var.az_client_secret
-  client_id                  = "4f0047d4-1e09-492b-b9d0-cf10c3addeff"
+  client_id                  = local.appId
   skip_provider_registration = true
   features {}
 }

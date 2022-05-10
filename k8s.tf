@@ -163,9 +163,9 @@ resource "kubernetes_deployment_v1" "backstage" {
 
       spec {
         container {
-          #   image = "acrregistrys6flp.azurecr.io/backstage:1.0.0"
-          image = "roadiehq/community-backstage-image:latest"
-          name  = "backstage"
+          image = "acrregistry4tqjh.azurecr.io/backstage:1.0.0"
+          # image = "roadiehq/community-backstage-image:latest"
+          name = "backstage"
           port {
             name           = "http"
             container_port = "7000"
@@ -271,7 +271,7 @@ resource "kubernetes_ingress_v1" "backstage_ingress" {
       service {
         name = kubernetes_service_v1.backstage.metadata.0.name
         port {
-          number     = 80
+          number = 80
         }
       }
     }

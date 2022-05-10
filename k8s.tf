@@ -222,7 +222,7 @@ resource "kubernetes_service_v1" "backstage" {
       app = kubernetes_deployment_v1.backstage.metadata.0.name
     }
     port {
-      port        = "8080"
+      port        = "80"
       target_port = "7000"
     }
     type = "NodePort"
@@ -284,7 +284,7 @@ resource "kubernetes_ingress_v1" "backstage_ingress" {
             service {
               name = kubernetes_service_v1.backstage.metadata.0.name
               port {
-                number = 8080
+                number = 80
               }
             }
           }
@@ -303,4 +303,3 @@ resource "kubernetes_ingress_v1" "backstage_ingress" {
     azurerm_kubernetes_cluster.landingzone,
   ]
 }
-

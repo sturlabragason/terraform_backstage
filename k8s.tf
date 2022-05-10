@@ -222,7 +222,7 @@ resource "kubernetes_service_v1" "backstage" {
       app = kubernetes_deployment_v1.backstage.metadata.0.name
     }
     port {
-      port        = "80"
+      port        = "8080"
       target_port = "7000"
     }
     type = "NodePort"
@@ -272,27 +272,27 @@ resource "kubernetes_ingress_v1" "backstage_ingress" {
       service {
         name = kubernetes_service_v1.backstage.metadata.0.name
         port {
-          number = 7000
+          number = 8080
         }
       }
     }
 
-    rule {
-      http {
-        path {
-          backend {
-            service {
-              name = kubernetes_service_v1.backstage.metadata.0.name
-              port {
-                number = 80
-              }
-            }
-          }
+    # rule {
+    #   http {
+    #     path {
+    #       backend {
+    #         service {
+    #           name = kubernetes_service_v1.backstage.metadata.0.name
+    #           port {
+    #             number = 80
+    #           }
+    #         }
+    #       }
 
-          path = "/*"
-        }
-      }
-    }
+    #       path = "/*"
+    #     }
+    #   }
+    # }
 
     #     tls {
     #       secret_name = "tls-secret"

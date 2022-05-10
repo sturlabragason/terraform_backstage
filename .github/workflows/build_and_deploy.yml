@@ -10,28 +10,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
-      # - name: build
-      #   run: |
-      #     nvm use 16
-      #     export NODE_OPTIONS="--max-old-space-size=8192"
-      #     # curl -s https://api.github.com/repos/backstage/backstage/releases/latest | sed -n 's/.*"tarball_url": "\(.*\)",.*/\1/p' | xargs -n1 wget -O - -q | tar -xz --strip-components=1
-      #     # cp ./backstage/app-config.yaml ./
-      #     cd backstage
-      #     yarn install -g
-      #     yarn install --frozen-lockfile
-      #     yarn tsc
-      #     yarn build
-      # - name: deploy
-      #   run: |
-      #     az login --service-principal -u "e942b89d-19e2-47db-9564-375819858e9d" -p $(az_client_secret) -t "f87e3ba3-60db-4f96-afb4-4e7729df2c96" --allow-no-subscriptions
-      #     az acr login --name acrregistrys6flp.azurecr.io
-      #     docker image build . --file packages/backend/Dockerfile --tag acrregistrys6flp.azurecr.io/backstage:1.0.0
-      #     docker push acrregistrys6flp.azurecr.io/backstage:1.0.0
-      #   env:
-      #     AZ_CLIENT_SECRET: $(az_client_secret)steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: build
+        run: |
+          nvm use 16
+          export NODE_OPTIONS="--max-old-space-size=8192"
+          # curl -s https://api.github.com/repos/backstage/backstage/releases/latest | sed -n 's/.*"tarball_url": "\(.*\)",.*/\1/p' | xargs -n1 wget -O - -q | tar -xz --strip-components=1
+          # cp ./backstage/app-config.yaml ./
+          cd backstage
+          yarn install -g
+          yarn install --frozen-lockfile
+          yarn tsc
+          yarn build
+      - name: deploy
+        run: |
+          az login --service-principal -u "b081bc92-fe64-4d89-9659-1a948d3b6850" -p"$env:AZ_CLIENT_SECRET" -t "241f985c-5a26-4377-bd6d-157c2c17fb20" --allow-no-subscriptions
+          az acr login --name acrregistry4tqjh.azurecr.io
+          docker image build . --file backstage/backend/Dockerfile --tag acrregistry4tqjh.azurecr.io/backstage:1.0.0
+          docker push acrregistry4tqjh.azurecr.io/backstage:1.0.0
+        env:
+          AZ_CLIENT_SECRET: ${{ secrets.AZ_CLIENT_SECRET }}
       - uses: sturlabragason/terraform_state_artifact@v1
         with:
             encryptionkey: ${{ secrets.encryptionkey }}

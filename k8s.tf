@@ -175,10 +175,10 @@ resource "kubernetes_deployment_v1" "backstage" {
           #       name = kubernetes_secret_v1.postgres.metadata.0.name
           #     }
           #   }
-        #   env {
-        #     name  = "BACKEND_SECRET"
-        #     value = "1234"
-        #   }
+          #   env {
+          #     name  = "BACKEND_SECRET"
+          #     value = "1234"
+          #   }
           env {
             name  = "GITHUB_TOKEN"
             value = var.GITHUB_TOKEN
@@ -222,10 +222,10 @@ resource "kubernetes_service_v1" "backstage" {
       app = kubernetes_deployment_v1.backstage.metadata.0.name
     }
     port {
-      name        = "http"
-      port        = "7000"
-      target_port = "http"
+      port        = "8080"
+      target_port = "7000"
     }
+    type = "NodePort"
   }
   depends_on = [
     azurerm_kubernetes_cluster.landingzone,
@@ -284,7 +284,7 @@ resource "kubernetes_ingress_v1" "backstage_ingress" {
             service {
               name = kubernetes_service_v1.backstage.metadata.0.name
               port {
-                number = 7000
+                number = 8080
               }
             }
           }

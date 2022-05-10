@@ -271,7 +271,8 @@ resource "kubernetes_ingress_v1" "backstage_ingress" {
       service {
         name = kubernetes_service_v1.backstage.metadata.0.name
         port {
-          number = 80
+          number     = 80
+          targetPort = 8080
         }
       }
     }

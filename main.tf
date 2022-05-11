@@ -46,14 +46,14 @@ provider "azurerm" {
   features {}
 }
 
-provider "kubernetes" {
-  host                   = azurerm_kubernetes_cluster.landingzone.kube_config.0.host
-  username               = azurerm_kubernetes_cluster.landingzone.kube_config.0.username
-  password               = azurerm_kubernetes_cluster.landingzone.kube_config.0.password
-  client_certificate     = base64decode(azurerm_kubernetes_cluster.landingzone.kube_config.0.client_certificate)
-  client_key             = base64decode(azurerm_kubernetes_cluster.landingzone.kube_config.0.client_key)
-  cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.landingzone.kube_config.0.cluster_ca_certificate)
-}
+# provider "kubernetes" {
+#   host                   = azurerm_kubernetes_cluster.landingzone.kube_config.0.host
+#   username               = azurerm_kubernetes_cluster.landingzone.kube_config.0.username
+#   password               = azurerm_kubernetes_cluster.landingzone.kube_config.0.password
+#   client_certificate     = base64decode(azurerm_kubernetes_cluster.landingzone.kube_config.0.client_certificate)
+#   client_key             = base64decode(azurerm_kubernetes_cluster.landingzone.kube_config.0.client_key)
+#   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.landingzone.kube_config.0.cluster_ca_certificate)
+# }
 
 
 data "azurerm_client_config" "landingzone" {
@@ -99,27 +99,27 @@ resource "azurerm_kubernetes_cluster" "landingzone" {
   # }
 }
 
-resource "azurerm_container_registry" "landingzone" {
-  name                = local.acr_name
-  resource_group_name = azurerm_resource_group.landingzone.name
-  location            = azurerm_resource_group.landingzone.location
-  sku                 = "Basic"
-  tags                = local.tags
-}
+# resource "azurerm_container_registry" "landingzone" {
+#   name                = local.acr_name
+#   resource_group_name = azurerm_resource_group.landingzone.name
+#   location            = azurerm_resource_group.landingzone.location
+#   sku                 = "Basic"
+#   tags                = local.tags
+# }
 
-resource "azurerm_role_assignment" "landingzone" {
-  principal_id                     = azurerm_kubernetes_cluster.landingzone.kubelet_identity[0].object_id
-  role_definition_name             = "AcrPull"
-  scope                            = azurerm_container_registry.landingzone.id
-  skip_service_principal_aad_check = true
-}
+# resource "azurerm_role_assignment" "landingzone" {
+#   principal_id                     = azurerm_kubernetes_cluster.landingzone.kubelet_identity[0].object_id
+#   role_definition_name             = "AcrPull"
+#   scope                            = azurerm_container_registry.landingzone.id
+#   skip_service_principal_aad_check = true
+# }
 
-resource "azurerm_role_assignment" "lzpush" {
-  principal_id                     = data.azurerm_client_config.landingzone.object_id
-  role_definition_name             = "AcrPush"
-  scope                            = azurerm_container_registry.landingzone.id
-  skip_service_principal_aad_check = true
-}
+# resource "azurerm_role_assignment" "lzpush" {
+#   principal_id                     = data.azurerm_client_config.landingzone.object_id
+#   role_definition_name             = "AcrPush"
+#   scope                            = azurerm_container_registry.landingzone.id
+#   skip_service_principal_aad_check = true
+# }
 
 # resource "azurerm_storage_account" "main" {
 #   name                     = local.storage_account_name_aks

@@ -66,81 +66,81 @@ data "azurerm_subscription" "landingzone" {
 # # Resources - Resource Groups, Virtual Network, Storage Account, Container with Terraform Statefile, Keyvault containing Service Principal Credentials 
 # # ------------------------------------------------------
 
-resource "azurerm_resource_group" "landingzone" {
-  name     = local.resource_group_name_landingzone
-  location = local.resource_location
-  tags     = data.azurerm_subscription.landingzone.tags
-}
-
-resource "azurerm_kubernetes_cluster" "landingzone" {
-  name                             = local.aks_name_landingzone
-  resource_group_name              = azurerm_resource_group.landingzone.name
-  location                         = azurerm_resource_group.landingzone.location
-  dns_prefix                       = "${local.aks_name_landingzone}-1"
-  tags                             = local.tags
-  http_application_routing_enabled = true
-
-  default_node_pool {
-    name       = "node1545f414"
-    node_count = 1
-    vm_size    = "Standard_D2_v2"
-  }
-
-  identity {
-    type = "SystemAssigned"
-  }
-  # addon_profile {
-  #   http_application_routing {
-  #     enabled = true
-  #   }
-  #   azure_policy {
-  #     enabled = true
-  #   }
-  # }
-}
-
-# resource "azurerm_container_registry" "landingzone" {
-#   name                = local.acr_name
-#   resource_group_name = azurerm_resource_group.landingzone.name
-#   location            = azurerm_resource_group.landingzone.location
-#   sku                 = "Basic"
-#   tags                = local.tags
+# resource "azurerm_resource_group" "landingzone" {
+#   name     = local.resource_group_name_landingzone
+#   location = local.resource_location
+#   tags     = data.azurerm_subscription.landingzone.tags
 # }
 
-# resource "azurerm_role_assignment" "landingzone" {
-#   principal_id                     = azurerm_kubernetes_cluster.landingzone.kubelet_identity[0].object_id
-#   role_definition_name             = "AcrPull"
-#   scope                            = azurerm_container_registry.landingzone.id
-#   skip_service_principal_aad_check = true
+# resource "azurerm_kubernetes_cluster" "landingzone" {
+#   name                             = local.aks_name_landingzone
+#   resource_group_name              = azurerm_resource_group.landingzone.name
+#   location                         = azurerm_resource_group.landingzone.location
+#   dns_prefix                       = "${local.aks_name_landingzone}-1"
+#   tags                             = local.tags
+#   http_application_routing_enabled = true
+
+#   default_node_pool {
+#     name       = "node1545f414"
+#     node_count = 1
+#     vm_size    = "Standard_D2_v2"
+#   }
+
+#   identity {
+#     type = "SystemAssigned"
+#   }
+#   # addon_profile {
+#   #   http_application_routing {
+#   #     enabled = true
+#   #   }
+#   #   azure_policy {
+#   #     enabled = true
+#   #   }
+#   # }
 # }
 
-# resource "azurerm_role_assignment" "lzpush" {
-#   principal_id                     = data.azurerm_client_config.landingzone.object_id
-#   role_definition_name             = "AcrPush"
-#   scope                            = azurerm_container_registry.landingzone.id
-#   skip_service_principal_aad_check = true
-# }
+# # resource "azurerm_container_registry" "landingzone" {
+# #   name                = local.acr_name
+# #   resource_group_name = azurerm_resource_group.landingzone.name
+# #   location            = azurerm_resource_group.landingzone.location
+# #   sku                 = "Basic"
+# #   tags                = local.tags
+# # }
 
-# resource "azurerm_storage_account" "main" {
-#   name                     = local.storage_account_name_aks
-#   resource_group_name      = azurerm_resource_group.landingzone.name
-#   location                 = azurerm_resource_group.landingzone.location
-#   account_tier             = "Standard"
-#   account_replication_type = "GRS"
-#   min_tls_version          = "TLS1_2"
-# }
+# # resource "azurerm_role_assignment" "landingzone" {
+# #   principal_id                     = azurerm_kubernetes_cluster.landingzone.kubelet_identity[0].object_id
+# #   role_definition_name             = "AcrPull"
+# #   scope                            = azurerm_container_registry.landingzone.id
+# #   skip_service_principal_aad_check = true
+# # }
 
-# resource "azurerm_storage_share" "main" {
-#   name                 = local.share_name
-#   storage_account_name = azurerm_storage_account.main.name
-#   quota                = 1
-# }
+# # resource "azurerm_role_assignment" "lzpush" {
+# #   principal_id                     = data.azurerm_client_config.landingzone.object_id
+# #   role_definition_name             = "AcrPush"
+# #   scope                            = azurerm_container_registry.landingzone.id
+# #   skip_service_principal_aad_check = true
+# # }
 
-# resource "azurerm_storage_account" "demo" {
-#   name                     = "demo${local.storage_account_name_aks}"
-#   resource_group_name      = azurerm_resource_group.landingzone.name
-#   location                 = azurerm_resource_group.landingzone.location
-#   account_tier             = "Standard"
-#   account_replication_type = "GRS"
-#   min_tls_version          = "TLS1_2"
-# }
+# # resource "azurerm_storage_account" "main" {
+# #   name                     = local.storage_account_name_aks
+# #   resource_group_name      = azurerm_resource_group.landingzone.name
+# #   location                 = azurerm_resource_group.landingzone.location
+# #   account_tier             = "Standard"
+# #   account_replication_type = "GRS"
+# #   min_tls_version          = "TLS1_2"
+# # }
+
+# # resource "azurerm_storage_share" "main" {
+# #   name                 = local.share_name
+# #   storage_account_name = azurerm_storage_account.main.name
+# #   quota                = 1
+# # }
+
+# # resource "azurerm_storage_account" "demo" {
+# #   name                     = "demo${local.storage_account_name_aks}"
+# #   resource_group_name      = azurerm_resource_group.landingzone.name
+# #   location                 = azurerm_resource_group.landingzone.location
+# #   account_tier             = "Standard"
+# #   account_replication_type = "GRS"
+# #   min_tls_version          = "TLS1_2"
+# # }

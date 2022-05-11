@@ -1,9 +1,9 @@
 on:
   push:
-    paths:
+    paths-ignore:
       - 'backstage/**'
 
-name: Deploy
+name: Docker
 jobs:
   release:
     runs-on: ubuntu-latest

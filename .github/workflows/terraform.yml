@@ -1,10 +1,9 @@
 on:
   push:
-  # push:
-  #   paths:
-  #     - 'backstage/**'
+    paths:
+      - 'backstage/**'
 
-name: Deploy
+name: Terraform
 jobs:
   release:
     runs-on: ubuntu-latest

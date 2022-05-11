@@ -1,6 +1,6 @@
-------------------------------------------------------
-Configuration - Locals [resource names, location] and provider configuration.
-------------------------------------------------------
+# ------------------------------------------------------
+# Configuration - Locals [resource names, location] and provider configuration.
+# ------------------------------------------------------
 
 locals {
   resource_location               = "West Europe"

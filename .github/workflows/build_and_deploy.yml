@@ -1,6 +1,6 @@
 on:
   push:
-    paths-ignore:
+    paths:
       - 'backstage/**'
 
 name: Docker

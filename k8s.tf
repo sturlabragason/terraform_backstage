@@ -168,7 +168,7 @@ resource "kubernetes_deployment_v1" "backstage" {
           name = "backstage"
           port {
             name           = "http"
-            container_port = "7000"
+            container_port = "7007"
           }
           #   env_from {
           #     secret_ref {
@@ -222,8 +222,8 @@ resource "kubernetes_service_v1" "backstage" {
       app = kubernetes_deployment_v1.backstage.metadata.0.name
     }
     port {
-      port        = "80"
-      target_port = "7000"
+      port        = "7007"
+      target_port = "7007"
     }
   }
   depends_on = [

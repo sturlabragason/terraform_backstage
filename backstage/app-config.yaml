@@ -1,6 +1,6 @@
 app:
   title: Scaffolded Backstage App
-  baseUrl: http://localhost:7000
+  baseUrl: http://localhost:7007
 
 organization:
   name: My Company
@@ -20,7 +20,7 @@ backend:
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
-    origin: http://localhost:80
+    origin: http://localhost:7007
     methods: [GET, POST, PUT, DELETE]
     credentials: true
   database:

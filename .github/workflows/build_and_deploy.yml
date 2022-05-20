@@ -29,6 +29,7 @@ jobs:
           az acr login --name acrregistrybddSJ.azurecr.io
           cd backstage
           docker image build . --file packages/backend/Dockerfile --tag acrregistrybddSJ.azurecr.io/backstage:1.0.0
+          az login --service-principal -u "b081bc92-fe64-4d89-9659-1a948d3b6850" -p "$AZ_CLIENT_SECRET" -t "241f985c-5a26-4377-bd6d-157c2c17fb20" --allow-no-subscriptions
           az acr login --name acrregistrybddSJ.azurecr.io
           docker push acrregistrybddSJ.azurecr.io/backstage:1.0.0
         env:

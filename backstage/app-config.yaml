@@ -12,14 +12,11 @@ backend:
   # auth:
   #   keys:
   #     - secret: ${BACKEND_SECRET}
-  auth:
-  keys:
-    - secret: "1234"
   baseUrl: http://localhost:7007
   listen:
     port: 7007
   database:
-    client: sqlite3
+    client: better-sqlite3
     connection: ':memory:'
   cache:
     store: memory
@@ -36,16 +33,6 @@ backend:
       - host: example.com
       - host: '*.mozilla.org'
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
-
-
-integrations:
-  github:
-    - host: github.com
-      token: ${GITHUB_TOKEN}
-    ### Example for how to add your GitHub Enterprise instance using the API:
-    # - host: ghe.example.net
-    #   apiBaseUrl: https://ghe.example.net/api/v3
-    #   token: ${GHE_TOKEN}
 
 proxy:
   '/test':

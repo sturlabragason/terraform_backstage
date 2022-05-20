@@ -222,6 +222,7 @@ resource "kubernetes_service_v1" "backstage" {
       app = kubernetes_deployment_v1.backstage.metadata.0.name
     }
     port {
+      name        = "http"
       port        = "80"
       target_port = "http"
     }

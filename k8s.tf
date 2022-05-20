@@ -163,8 +163,8 @@ resource "kubernetes_deployment_v1" "backstage" {
 
       spec {
         container {
-          image = "acrregistrybddsj.azurecr.io/backstage:1.0.0"
-          # image = "roadiehq/community-backstage-image:latest"
+          # image = "acrregistrybddsj.azurecr.io/backstage:1.0.0"
+          image = "roadiehq/community-backstage-image:latest"
           name = "backstage"
           port {
             name           = "http"

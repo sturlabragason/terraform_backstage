@@ -27,9 +27,9 @@ jobs:
       #     docker push acrregistry4tqjh.azurecr.io/backstage:1.0.0
       #   env:
       #     AZ_CLIENT_SECRET: ${{ secrets.AZ_CLIENT_SECRET }}
-      - uses: sturlabragason/terraform_state_artifact@v1
-        with:
-            encryptionkey: ${{ secrets.encryptionkey }}
-        env:
-          TF_VAR_az_client_secret: ${{ secrets.AZ_CLIENT_SECRET }}
-          TF_VAR_GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      # - uses: sturlabragason/terraform_state_artifact@v1
+      #   with:
+      #       encryptionkey: ${{ secrets.encryptionkey }}
+      #   env:
+      #     TF_VAR_az_client_secret: ${{ secrets.AZ_CLIENT_SECRET }}
+      #     TF_VAR_GITHUB_TOKEN: ${{ secrets.TOKEN }}

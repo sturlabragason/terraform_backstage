@@ -265,6 +265,7 @@ resource "kubernetes_service_v1" "backstage" {
 resource "kubernetes_ingress_v1" "backstage_ingress" {
   metadata {
     name = "backstage-ingress"
+    namespace = kubernetes_namespace_v1.main.metadata.0.name
     annotations = {
       "kubernetes.io/ingress.class" = "addon-http-application-routing"
     }

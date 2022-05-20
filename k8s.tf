@@ -163,7 +163,7 @@
 
 #       spec {
 #         container {
-#           image = "acrregistry4tqjh.azurecr.io/backstage:1.0.0"
+#           image = "acrregistrybddSJ.azurecr.io/backstage:1.0.0"
 #           # image = "roadiehq/community-backstage-image:latest"
 #           name = "backstage"
 #           port {

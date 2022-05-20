@@ -18,7 +18,9 @@ jobs:
       - name: build
         run: |
           export NODE_OPTIONS="--max-old-space-size=8192"
-          cd backstage
+          curl -s https://api.github.com/repos/backstage/backstage/releases/latest | sed -n 's/.*"tarball_url": "\(.*\)",.*/\1/p' | xargs -n1 wget -O - -q | tar -xz --strip-components=1
+          cp ./backstage/app-config.yaml ./
+          # cd backstage
           yarn install -g
           yarn install --frozen-lockfile
           yarn tsc

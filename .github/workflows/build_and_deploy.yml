@@ -7,26 +7,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: build
-        run: |
-          export NODE_OPTIONS="--max-old-space-size=8192"
-          cd backstage
-          yarn install -g
-          yarn install --frozen-lockfile
-          yarn tsc
-          yarn build
-      - name: deploy
-        run: |
-          az login --service-principal -u "b081bc92-fe64-4d89-9659-1a948d3b6850" -p "$AZ_CLIENT_SECRET" -t "241f985c-5a26-4377-bd6d-157c2c17fb20" --allow-no-subscriptions
-          az acr login --name acrregistry4tqjh.azurecr.io
-          cd backstage
-          docker image build . --file packages/backend/Dockerfile --tag acrregistry4tqjh.azurecr.io/backstage:1.0.0
-          docker push acrregistry4tqjh.azurecr.io/backstage:1.0.0
-        env:
-          AZ_CLIENT_SECRET: ${{ secrets.AZ_CLIENT_SECRET }}
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16
+      # - name: build
+      #   run: |
+      #     export NODE_OPTIONS="--max-old-space-size=8192"
+      #     cd backstage
+      #     yarn install -g
+      #     yarn install --frozen-lockfile
+      #     yarn tsc
+      #     yarn build
+      # - name: deploy
+      #   run: |
+      #     az login --service-principal -u "b081bc92-fe64-4d89-9659-1a948d3b6850" -p "$AZ_CLIENT_SECRET" -t "241f985c-5a26-4377-bd6d-157c2c17fb20" --allow-no-subscriptions
+      #     az acr login --name acrregistry4tqjh.azurecr.io
+      #     cd backstage
+      #     docker image build . --file packages/backend/Dockerfile --tag acrregistry4tqjh.azurecr.io/backstage:1.0.0
+      #     docker push acrregistry4tqjh.azurecr.io/backstage:1.0.0
+      #   env:
+      #     AZ_CLIENT_SECRET: ${{ secrets.AZ_CLIENT_SECRET }}
       - uses: sturlabragason/terraform_state_artifact@v1
         with:
             encryptionkey: ${{ secrets.encryptionkey }}

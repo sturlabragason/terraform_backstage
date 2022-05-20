@@ -1,5 +1,10 @@
 on:
   push:
+    paths-ignore:
+      - 'deploy.tf'
+      - 'k8s.tf'
+      - 'main.tf'
+      - 'variables.tf'
 
 name: Deploy
 jobs:
